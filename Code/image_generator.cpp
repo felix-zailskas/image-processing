@@ -31,39 +31,8 @@ void ImageGenerator::generate_ppm_image(string fname, InitType mode) {
                     c = Triple(0, 0, 0);
                     break;
                 case RGB_SPLIT:
-                    // diagonals across the square
-                    // bottom left to top right
-                    if (y == -slope * x + height) {
-                        c  = Triple(0, 0, 0); 
-                        break;
-                    }
-                    // top left to bottom right
-                    if (y == slope * x) {
-                        c = Triple(0, 0, 0);
-                        break;
-                    }
-                    
-                    // fill in left triangle
-                    if ((y > slope * x) && (y < -slope * x + height)) {
-                        c = Triple(255, 0, 0);
-                        break;
-                    }
-                    // fill in the right triangle
-                    if ((y < slope * x) && (y > -slope * x + height)) {
-                        c = Triple(0, 0, 255);
-                        break;
-                    }
-                    // fill in the top triangle
-                    if (x > y) {
-                        c = Triple(0, 255, 0);
-                        break;
-                    }
-                    // fill in the bottom triangle
-                    if (x < y) {
-                        c = Triple(150, 94, 19);
-                        break;
-                    }
-
+                    c = rgb_split_color(x, y, slope);
+                    break;
                 case WHITE:
                 default:
                     c = Triple(255, 255, 255);
@@ -76,4 +45,33 @@ void ImageGenerator::generate_ppm_image(string fname, InitType mode) {
     }
 
     image.close();
+}
+
+Triple ImageGenerator::rgb_split_color(int x, int y, int slope) {
+    // diagonals across the square
+    // bottom left to top right
+    if (y == -slope * x + height) {
+        return Triple(0, 0, 0); 
+    }
+    // top left to bottom right
+    if (y == slope * x) {
+        return Triple(0, 0, 0);
+    }
+    // fill in left triangle
+    if ((y > slope * x) && (y < -slope * x + height)) {
+        return Triple(255, 0, 0);
+    }
+    // fill in the right triangle
+    if ((y < slope * x) && (y > -slope * x + height)) {
+        return Triple(0, 0, 255);
+    }
+    // fill in the top triangle
+    if (x > y) {
+        return Triple(0, 255, 0);
+    }
+    // fill in the bottom triangle
+    if (x < y) {
+        return Triple(150, 94, 19);
+    }
+    return Triple(255, 255, 255);
 }

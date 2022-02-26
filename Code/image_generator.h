@@ -26,6 +26,9 @@ class ImageGenerator
     
         int height;
         int width;
+    
+    private:
+        Triple rgb_split_color(int x, int y, int slope);
 };
 
 #endif
