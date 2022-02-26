@@ -5,10 +5,10 @@
 #include <fstream>
 #include <ctime>
 #include <cstdlib>
+#include <sstream>
+#include <cmath>
 
 #include "triple.h"
-
-using namespace std;
 
 typedef enum InitType {
     RANDOM,
@@ -20,15 +20,21 @@ typedef enum InitType {
 class ImageGenerator
 {
     public:
-        ImageGenerator(int w, int h);
+        ImageGenerator();
 
-        void generate_ppm_image(string fname, InitType mode);
+        void generate_ppm_image(std::string fname, InitType mode, int width, int height);
+        void apply_color_filter(std::string src, std::string dest, Triple filter);
+        void apply_inverted_filter(std::string src, std::string dest);
     
         int height;
         int width;
     
     private:
+        void copy_ppm_header(std::ifstream &src, std::ofstream &dest);
+        
+        Triple get_next_rgb(std::ifstream &src);
         Triple rgb_split_color(int x, int y, int slope);
+        
 };
 
 #endif

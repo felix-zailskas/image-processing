@@ -7,7 +7,7 @@
  * 
  * Disclaimer:
  * This class has been provided to me by the RUG in the course COmputer Graphics.
- * I was allowed to use this class fro private projects.
+ * I was allowed to use this class for private projects.
  * 
  */
 
